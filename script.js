@@ -1,5 +1,5 @@
 // Countdown Logic
-const targetDate = new Date("May 26, 2026 00:00:00").getTime();
+const targetDate = new Date("April 26, 2026 00:00:00").getTime();
 function updateCountdown() {
   const now = new Date().getTime();
   const distance = targetDate - now;
