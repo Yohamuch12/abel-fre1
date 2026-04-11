@@ -60,29 +60,28 @@ qrImage.src = `https://quickchart.io/qr?text=${guestId}&size=150`;
 // Run the function when the page loads
 window.addEventListener('DOMContentLoaded', initializeGuestQR);
 
+
 function generateGuestQR() {
-  // 1. Look at the browser's address bar for "?id=..."
   const params = new URLSearchParams(window.location.search);
   const guestId = params.get('id');
+  const guestName = params.get('nm'); // We'll use 'nm' for the name
 
-  // 2. Only run if an ID is found
   if (guestId) {
     const qrSection = document.getElementById('qr-section');
     const qrImage = document.getElementById('qr-image');
     const guestIdDisplay = document.getElementById('guest-id-display');
+    const guestNameDisplay = document.getElementById('guest-name-display');
 
-    if (qrSection && qrImage) {
-      // Show the hidden section
+    if (qrSection) {
       qrSection.style.display = 'block';
-      
-      // Set the QR image source (using a reliable API)
       qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${guestId}`;
-      
-      // Show the ID text (e.g., G001)
       guestIdDisplay.innerText = guestId;
+      
+      // If a name was provided in the link, show it
+      if (guestName) {
+        guestNameDisplay.innerText = decodeURIComponent(guestName);
+      }
     }
   }
 }
-
-// Call this function when the page finishes loading
 window.addEventListener('load', generateGuestQR);
